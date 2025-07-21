@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Release Parking Spot</title>
+  </head>
+  <body>
+    {{spot_data}}
+    <form action="/{{ spot_data['spot_id'] }}/spot/release" method="POST">
+      <div>
+        <label for="show_spot_id">Spot ID:</label>
+        <input
+          type="text"
+          name="spot_id"
+          id="show_spot_id"
+          value="{{ spot_data['spot_id'] }}"
+          readonly
+        />
+      </div>
+      <div>
+        <label for="show_vehicle_number">Vehicle Number:</label>
+        <input
+          type="text"
+          name="vehicle_number"
+          id="show_vehicle_number"
+          value="{{ spot_data['vehicle_number'] }}"
+          readonly
+        />
+      </div>
+      <div>
+        <label for="show_park_in_time">Parking Time:</label>
+        <input
+          type="text"
+          name="park_in_time"
+          id="show_park_in_time"
+          value="{{ spot_data['park_in_time'] }}"
+          readonly
+        />
+      </div>
+      <div>
+        <label for="show_cost_per_day">Cost Per Day:</label>
+        <input
+          type="text"
+          name="cost_per_day"
+          id="show_cost_per_day"
+          value="₹ Price"
+          readonly
+        />
+      </div>
+      <div>
+        <label for="show_total_cost">Total Cost:</label>
+        <input
+          type="text"
+          name="cost_per_day"
+          id="show_total_cost"
+          value="₹ Price"
+          readonly
+        />
+      </div>
+      <div>
+        <button type="submit">Release</button>
+        <a href="/">Cancel</a>
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,11 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-</head>
-<body>
+  </head>
+  <body>
     {{user_reservation_data}}
-</body>
+    <main>
+      {% if spot_update_error %}
+      {{ spot_update_error }}
+      {% endif %}
+      <h1>Recent Parking History</h1>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Location</th>
+            <th>Vehicle_no</th>
+            <th>Parking Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in user_reservation_data | sort(attribute='park_in_time',
+          reverse=True)%}
+          <tr>
+            <th>{{data["lot_id"]}}</th>
+            <th>{{data["address"]}}, {{data["prime_location"]}}</th>
+            <th>{{data["vehicle_number"]}}</th>
+            <th>{{data["park_in_time"]}}</th>
+            <th>
+              {% if data["park_out_time"] is not none %}
+              <button>Parked Out</button>
+              {% else %}
+              <a href="/{{ data['spot_id'] }}/spot/release">Release</a>
+              {% endif %}
+            </th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h1>Parking Lots</h1>
+      <!-- {% for lot in available_parking_lots | selectattr("available_slots",">",0)%}
+      {{available_parking_lots}}
+      {% endfor %}
+       -->
+      {{available_parking_lots}}
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Address</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for lot in available_parking_lots |
+          selectattr("available_slots",">",0)%}
+          <tr>
+            <th>{{lot["lot_id"]}}</th>
+            <th>{{lot["lot_prime_location"]}}, {{lot["lot_address"]}}</th>
+            <th>{{lot["price_per_day"]}}</th>
+            <th>{{lot["available_slots"]}}</th>
+            <th><a href="/{{lot['lot_id']}}/spot/book">Book</a></th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </main>
+  </body>
 </html>

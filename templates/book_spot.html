@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Parking Spot</title>
+  </head>
+  <body>
+    {% if error %} {{error}} {% endif %}
+
+    <h1>Book the parking spot</h1>
+    <form action="/{{ lot_data['lot_id'] }}/spot/book" method="POST">
+      <div>
+        <label for="show_spot_id">Spot_ID:</label>
+        <input
+          type="text"
+          name="spot_id"
+          id="show_spot_id"
+          value="{{ lot_data['spot_id'] }}"
+          readonly
+        />
+      </div>
+      <div>
+        <label for="show_lot_id">Lot_ID:</label>
+        <input
+          type="text"
+          name="lot_id"
+          id="show_lot_id"
+          value="{{ lot_data['lot_id'] }}"
+          readonly
+        />
+      </div>
+      <div>
+        <label for="show_user_id">User_ID:</label>
+        <input
+          type="text"
+          name="user_id"
+          id="show_user_id"
+          value="{{ user_id }}"
+          readonly
+        />
+      </div>
+      <div>
+        <label for="show_lot_location">Location:</label>
+        <input
+          type="text"
+          name="lot_location"
+          id="show_lot_location"
+          value="{{ lot_data['lot_prime_location'] }}, {{ lot_data['lot_address'] }}"
+          readonly
+        />
+      </div>
+      <div>
+        <label for="vehicle_number">Vehicle Number:</label>
+        <input type="text" id="vehicle_number" name="vehicle_number" required />
+      </div>
+      <div>
+        <button type="submit">Reserve</button>
+        <a href="/">Cancel</a>
+      </div>
+    </form>
+  </body>
+</html>

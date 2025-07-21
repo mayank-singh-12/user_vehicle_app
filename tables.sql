@@ -25,7 +25,7 @@ create table if not exists parking_spot (
 
 
 create table if not exists reserve_parking_spot (
-   id                integer primary key,
+   id                integer primary key ,
    spot_id           integer not null,
    user_id           integer not null,
    parking_timestamp timestamp default current_timestamp not null,
